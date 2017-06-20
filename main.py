@@ -9,31 +9,33 @@ colorama.init()
 
 print "Hey spy! Let\'s get started"
 
-question = "Do you want to continue as " + spy.salutation + " " + spy.name + " (Y/N)? " #confirmation of the authenticity of the user
-existing = raw_input(question)#raw_input takes the input as a string
+question = "Do you want to continue as " + spy.salutation + " " + spy.name + " (Y/N)? "  #confirmation of the authenticity of the user
+existing = raw_input(question)  #raw_input takes the input as a string
+#password = raw_input("So, Mr. Bond please enter your password to confirm your authentication : ")
 
 
-def add_status():#function used to add and update statuses
+
+def add_status():  #function used to add and update statuses
 
     updated_status_message = None
 
     if spy.current_status_message != None:
 
-        print "Your current status message is %s \n"% (spy.current_status_message)#prints the current status
+        print "Your current status message is %s \n"% (spy.current_status_message)  #prints the current status
     else:
         print "You don't have any status message currently \n"
 
     default = raw_input("So, Do you want to select from the older status (y/n)? ")
 
-    if default.upper() == "N": #.upper() function automatically converts the input into upper case
+    if default.upper() == "N":  #.upper() function automatically converts the input into upper case,  N is for adding new status
         new_status_message = raw_input("What's on your mind right now ? ")
 
 
-        if len(new_status_message) > 0:
-            STATUS_MESSAGES.append(new_status_message)
+        if len(new_status_message) > 0:  #length of the status message should be greater than zero
+            STATUS_MESSAGES.append(new_status_message)   #new status message is added in the list of status messages
             updated_status_message = new_status_message
 
-    elif default.upper() == "Y":
+    elif default.upper() == "Y":   #it is for using one of the the previously added messages
 
         item_position = 1
 
@@ -48,19 +50,19 @@ def add_status():#function used to add and update statuses
             updated_status_message = STATUS_MESSAGES[message_selection - 1]
 
     else:
-        print "Oops! Incorrect option pal! Press either y or n."
+        print "Oops! Incorrect option pal! Press either y or n."  #if the option chosen is not mentoned in the list,this message is displayed
 
     if updated_status_message:
         print "Your updated status message is : %s" % (updated_status_message)
     else:
         print "Uh-Oh! You currently don't have a status update"
 
-    return updated_status_message
+    return updated_status_message  #status is updated
 
 
 
 
-def add_friend():
+def add_friend():#function for adding friends
     new_friend = Spy('','',0,0.0)
 
     new_friend.name = raw_input("So, Who is your friend ? : ")
@@ -83,7 +85,7 @@ def add_friend():
     return len(friends)
 
 
-def select_a_friend():
+def select_a_friend():  #function for selecting a friend among the listed friends
     item_number = 0
 
     for friend in friends:
@@ -94,7 +96,7 @@ def select_a_friend():
 
     friend_choice_position = int(friend_choice) - 1
 
-    return friend_choice_position
+    return friend_choice_position  #returns the index of the friend chosen
 
 
 def send_message():
@@ -102,10 +104,10 @@ def send_message():
     friend_choice = select_a_friend()
 
     original_image = raw_input("What is the name of the image ? ")
-    output_path = "output.jpg"
+    output_path = "output.jpg"  #image path
     text = raw_input("What secret message would you want to hide behind this image or if u want to choose among 1.SOS 2.SAVE ME 3.NEED ASSISTENCE? ")
 
-    invalidchar = set(string.punctuation.replace("_", " "))
+    invalidchar = set(string.punctuation.replace("_", " "))  #this checks that the secret contains space or underscore or nothing
     if any(char in invalidchar for char in text):
         print "Invalid, The secret message should not contain spaces !"
         text = raw_input("Enter a valid secret message or if u want to choose among 1.SOS 2.SAVE ME 3.NEED ASSISTENCE ? ")
@@ -113,16 +115,16 @@ def send_message():
     else:
         print "Hurrah! Your secret message is good to go, wait a few seconds untill your message is encoded in the image !"
 
-    Steganography.encode(original_image, output_path, text)
+    Steganography.encode(original_image, output_path, text)  #this encodes the secret message in the image
 
     new_chat = ChatMessage(text,True)
 
-    friends[friend_choice].chats.append(new_chat)
+    friends[friend_choice].chats.append(new_chat)  #the chat is added to the previous chat
 
     print "Awesome! Your secret message-image is finally ready!"
 
 
-def read_message():
+def read_message():  #ths function reads the messages sent by spy
 
     sender = select_a_friend()
 
@@ -168,12 +170,12 @@ def read_chat_history():
           #print '[%s] %s said: %s' % (chat.time.strftime("%d %B %Y"), friends[read_for].name, chat.message)
 
 
-def start_chat(spy):
+def start_chat(spy):  #this starts the chat by spy
 
     spy.name = spy.salutation + " " + spy.name
 
 
-    if spy.age>12 and spy.age<50:
+    if spy.age>12 and spy.age<50:  #age constraint is checked
 
 
         print "Authentication complete. Welcome " + spy.name + " , of age: "+ str(spy.age) + " and rating : " + str(spy.rating) + ". Overwhelmed to have you onboard !"
@@ -205,11 +207,12 @@ def start_chat(spy):
     else:
         print 'Oops Sorry! you are Too young pal! Better luck next time!'
 
+
 if existing == "Y" or existing == "y":
     start_chat(spy)
 else:
 
-    spy = Spy('','',0,0.0)
+    spy = Spy('','',0,0.0)  #is the existing spy is not Mr.Bond then new entry of spy is made under constraints
 
 
     spy.name = raw_input("Hey pal ! Welcome to spy chat, may i know your spy name first: ")

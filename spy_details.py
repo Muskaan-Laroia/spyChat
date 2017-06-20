@@ -25,7 +25,7 @@ class Spy:#Class Spy created for the spy details
         self.current_status_message = None
 
 
-class ChatMessage:#class chatmessage created and used for storing, appending and printing the chats
+class ChatMessage:  #class chatmessage created and used for storing, appending and printing the chats
 
     def __init__(self,message,sent_by_me):
         self.message = message
@@ -39,4 +39,4 @@ friend_two = Spy('M', 'Ms.', 23,  4.39)
 friend_three = Spy('Mary goodnight', 'Ms.', 27 , 4.19)
 
 
-friends = [friend_one, friend_two, friend_three]#friends of the spy Bond initially stored in
+friends = [friend_one, friend_two, friend_three]  #friends of the spy Bond initially stored in
